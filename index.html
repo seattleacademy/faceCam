@@ -27,8 +27,8 @@
 
         results.forEach(function(result) {
             let btn = document.createElement("button");
-            btn.innerText = result.classScore.toFixed(2);
-            btn.style = 'position:absolute; top:' + result.box.top + 'px;left:' + result.box.left + 'px; zindex:2';
+            btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
+            btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
             btn.className = 'faceNames';
             document.getElementById("imagediv").appendChild(btn);
         })
@@ -37,10 +37,12 @@
         //let weightsURI = "weights";
         let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
         await faceapi.nets.ssdMobilenetv1.load(weightsURI);
+        await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        await faceapi.nets.faceExpressionNet.load(weightsURI);
     }
 
     async function updateResults() {
-        results = await faceapi.detectAllFaces("myImg");
+        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions()
         console.log(results);
         drawFaceRecognitionResults(results);
     }

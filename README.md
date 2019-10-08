@@ -1,35 +1,16 @@
 # faceCam
 A face recognition tutorial using the browser
-## Step 5  Place button over each face with classScore
-1.  Add a clearFaceTag function to remove old buttons with class faceName
+## Step 6  Add expression detection
+1.  Add landmark and expression detection to loadModels function
 ```javascript
-    function clearFaceNames() {
-        let paras = document.getElementsByClassName('faceNames');
-        while (paras[0]) {
-            paras[0].parentNode.removeChild(paras[0]);
-        }
-    }
+        await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        await faceapi.nets.faceExpressionNet.load(weightsURI);
 ```
-2.  Create drawFaeRegonition function to create an place button with classScore
+2.  Change drawFaceRecognitionResults btn.innerText and style to show expression of dections
  ```javascript  
-    function drawFaceRecognitionResults(results) {
-        clearFaceNames()
-        inputImgEl = document.getElementById("myImg");
-        results = faceapi.resizeResults(results, inputImgEl);
-
-        results.forEach(function(result) {
-            let btn = document.createElement("button");
-            btn.innerText = result.classScore.toFixed(2);
-            btn.style = 'position:absolute; top:' + result.box.top + 'px;left:' + result.box.left + 'px; zindex:2';
-            btn.className = 'faceNames';
-            document.getElementById("imagediv").appendChild(btn);
-        })
-    }
+            btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
+            btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
 ```
-3.  Add call to drawFaceRecognitionResults and the bottome of updateResults function.
-```javascript
-      drawFaceRecognitionResults(results);
-```
-4. Verify that class scores are placed above each face on original and uploaded pictures.
-5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step5
+3. Check with pictures of happy, sad, surprised faces etc. to confirm matchings
+4. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step6
 
