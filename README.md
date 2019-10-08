@@ -1,26 +1,18 @@
 # faceCam
 A face recognition tutorial using the browser
-## Step 1  Create a project template with page with image
-1.  Make directory called faceCam
-1.  Withing the directory, create a basic html starter template (! in Emmet)
+## Step 2  Add face-api.js library
+1.  Create a folder js inside the project
+1.  Download from https://github.com/justadudewhohacks/face-api.js/tree/master/dist and place face-api.js in the js directory.
+1.  Place a reference to the face-api.js library in the head section of the index.html page
 ```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>FaceCam</title>
-</head>
-
-<body>
-</body>
-
-</html
-  ```
-3.  Place an image with several faces in this directory (we will use bbt.jpg from https://github.com/justadudewhohacks/face-api.js/blob/master/examples/images/bbt1.jpg in the example
-3.  Create an img tag in the body of index.html with the sample image set as the src.
-```html
-	<img src="bbt.jpg" alt="">
+	<script src="js/face-api.js"></script>
 ```
-5. Test and make sure your picture is displayed on the page.  This can be viewed as tag1 at https://github.com/seattleacademy/faceCam
+1.  Add script to console.log(faceapi) at the top of the body. 
+```html
+	<script>
+		console.log(faceapi);
+	</script>
+```
+5.  Check with the console in the browswer that the library is loading and examine the attributes and methods.
+6.  This step can be checked at https://github.com/seattleacademy/faceCam/tree/step2
 
