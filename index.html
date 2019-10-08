@@ -9,9 +9,19 @@
 
 <body>
     <script>
-    console.log(faceapi);
+        console.log(faceapi);
     </script>
-    <img src="bbt.jpg" alt="">
+    <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
+    <div id="imagediv">
+        <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
+    </div>
+    <script>
+    async function uploadImage(e) {
+        const imgFile = e.target.files[0]
+        const img = await faceapi.bufferToImage(imgFile)
+        document.getElementById("myImg").src = img.src
+    }
+    </script>
 </body>
 
 </html>
