@@ -22,5 +22,5 @@ A face recognition tutorial using the browser
 ```html
 	<img src="bbt.jpg" alt="">
 ```
-5. Test and make sure your picture is displayed on the page.  This can be viewed as tag1 at https://github.com/seattleacademy/faceCam
+5. Test and make sure your picture is displayed on the page.  This can be viewed as stop1 at https://github.com/seattleacademy/faceCam/tree/step1
 
