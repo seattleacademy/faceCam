@@ -27,7 +27,7 @@
 
         results.forEach(function(result) {
             let btn = document.createElement("button");
-            btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
+			btn.innerText = result.bestMatch.label;
             btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
             btn.className = 'faceNames';
             document.getElementById("imagediv").appendChild(btn);
@@ -40,10 +40,19 @@
         await faceapi.nets.faceLandmark68Net.load(weightsURI);
         await faceapi.nets.faceExpressionNet.load(weightsURI);
         await faceapi.nets.ageGenderNet.load(weightsURI);
+        await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
     }
 
     async function updateResults() {
-        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender();
+        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
+        faceMatcher = new faceapi.FaceMatcher(results);
+        results.forEach(function(result, i, results) {
+
+            if (results.length > 0) {
+                results[i].bestMatch = faceMatcher.findBestMatch(result.descriptor)
+            };
+        })
+
         console.log(results);
         drawFaceRecognitionResults(results);
     }
