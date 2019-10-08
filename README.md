@@ -1,30 +1,35 @@
 # faceCam
 A face recognition tutorial using the browser
-## Step 4  Load models and recognize faces
-1.  In the script tag at the bottom of index.html, add the loadModels function to load weights. 
+## Step 5  Place button over each face with classScore
+1.  Add a clearFaceTag function to remove old buttons with class faceName
 ```javascript
-    async function loadModels() {
-        //let weightsURI = "weights";
-        let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
-        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
+    function clearFaceNames() {
+        let paras = document.getElementsByClassName('faceNames');
+        while (paras[0]) {
+            paras[0].parentNode.removeChild(paras[0]);
+        }
     }
 ```
-2.  Add also to the scripts to display in the console faces detected.
+2.  Create drawFaeRegonition function to create an place button with classScore
  ```javascript  
-    async function updateResults() {
-        results = await faceapi.detectAllFaces("myImg");
-        console.log(results);
-    } 
+    function drawFaceRecognitionResults(results) {
+        clearFaceNames()
+        inputImgEl = document.getElementById("myImg");
+        results = faceapi.resizeResults(results, inputImgEl);
+
+        results.forEach(function(result) {
+            let btn = document.createElement("button");
+            btn.innerText = result.classScore.toFixed(2);
+            btn.style = 'position:absolute; top:' + result.box.top + 'px;left:' + result.box.left + 'px; zindex:2';
+            btn.className = 'faceNames';
+            document.getElementById("imagediv").appendChild(btn);
+        })
+    }
 ```
-3.  Just before the end of the script tag, call the function loadModels followed by updateResults after the models have been loaded.
+3.  Add call to drawFaceRecognitionResults and the bottome of updateResults function.
 ```javascript
-    loadModels().then(updateResults);
+      drawFaceRecognitionResults(results);
 ```
-4.  Add updateResults() at the end of the uploadImage function
-```javascript
-    loadModels().then(updateResults);
-````
-5. Remove any other calls to console. 
-6. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
-7. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step4
+4. Verify that class scores are placed above each face on original and uploaded pictures.
+5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step5
 
