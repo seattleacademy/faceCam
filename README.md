@@ -15,11 +15,11 @@ A face recognition tutorial using the browser
         results = await faceapi.detectAllFaces("myImg");
         console.log(results);
     } 
- '''
+```
 1.  Just before the end of the script tag, call the function loadModels followed by updateResults after the models have been loaded.
 ```javascript
     loadModels().then(updateResults);
-    ```
+```
 1.  Add updateResults() at the end of the uploadImage function
 ```javascript
     loadModels().then(updateResults);
