@@ -15,6 +15,10 @@ A face recognition tutorial using the browser
 ```javascript
         results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions()
 ```
-3. Check with pictures of happy, sad, surprised faces etc. to confirm matchings
-4. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step6
+4. Add updateResults to uploadImage function
+```javascript
+updateResults()
+```
+5. Check with pictures of happy, sad, surprised faces etc. to confirm matchings
+6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step6
 
