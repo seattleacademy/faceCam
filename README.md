@@ -1,23 +1,30 @@
 # faceCam
 A face recognition tutorial using the browser
-## Step 3  Add file input to update image
-1.  Surround img tag with div with id of imagediv.  Give the image a style for max-width of 800px.
-```html
-    <div id="imagediv">
-        <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
-    </div>
-```
-1.  Download from https://github.com/justadudewhohacks/face-api.js/tree/master/dist and place face-api.js in the js directory.
-1.  Just before the close of the body, add the following script to upload the image
-```html
-    <script>
-    async function uploadImage(e) {
-        const imgFile = e.target.files[0]
-        const img = await faceapi.bufferToImage(imgFile)
-        document.getElementById("myImg").src = img.src
+## Step 4  Load models and recognize faces
+1.  In the script tag at the bottom of index.html, add the loadModels function to load weights. 
+```javascript
+    async function loadModels() {
+        //let weightsURI = "weights";
+        let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
+        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
     }
-    </script>
+```
+1.  Add also to the scripts to display in the console faces detected.
+ ```javascript  
+    async function updateResults() {
+        results = await faceapi.detectAllFaces("myImg");
+        console.log(results);
+    } 
+ '''
+1.  Just before the end of the script tag, call the function loadModels followed by updateResults after the models have been loaded.
+```javascript
+    loadModels().then(updateResults);
     ```
-1. Verify that the image is replaced when you select a new image.  The function uses faceapi method to turn the image into a buffer.  Read up on async/await which is an advanced type of function.
-1.  This step can be checked at https://github.com/seattleacademy/faceCam/tree/step3
+1.  Add updateResults() at the end of the uploadImage function
+```javascript
+    loadModels().then(updateResults);
+````
+1. Remove any other calls to console. 
+1. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
+1. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step4
 

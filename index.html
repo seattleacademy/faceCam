@@ -8,19 +8,31 @@
 </head>
 
 <body>
-    <script>
-        console.log(faceapi);
-    </script>
+
     <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
     <div id="imagediv">
         <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
     </div>
     <script>
+    async function loadModels() {
+        //let weightsURI = "weights";
+        let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
+        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
+    }
+
+    async function updateResults() {
+        results = await faceapi.detectAllFaces("myImg");
+        console.log(results);
+    }
+
     async function uploadImage(e) {
         const imgFile = e.target.files[0]
         const img = await faceapi.bufferToImage(imgFile)
         document.getElementById("myImg").src = img.src
+        updateResults();
     }
+
+    loadModels().then(updateResults);
     </script>
 </body>
 
