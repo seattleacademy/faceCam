@@ -27,7 +27,7 @@
 
         results.forEach(function(result) {
             let btn = document.createElement("button");
-            btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
+            btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
             btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
             btn.className = 'faceNames';
             document.getElementById("imagediv").appendChild(btn);
@@ -39,10 +39,11 @@
         await faceapi.nets.ssdMobilenetv1.load(weightsURI);
         await faceapi.nets.faceLandmark68Net.load(weightsURI);
         await faceapi.nets.faceExpressionNet.load(weightsURI);
+        await faceapi.nets.ageGenderNet.load(weightsURI);
     }
 
     async function updateResults() {
-        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions()
+        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender();
         console.log(results);
         drawFaceRecognitionResults(results);
     }
