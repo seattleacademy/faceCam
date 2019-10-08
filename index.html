@@ -27,11 +27,22 @@
 
         results.forEach(function(result) {
             let btn = document.createElement("button");
-			btn.innerText = result.bestMatch.label;
+            btn.innerText = result.bestMatch.label;
             btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
             btn.className = 'faceNames';
+            btn.dataset.person = result.bestMatch.label;
+            btn.dataset.descriptor = result.descriptor;
+            btn.addEventListener("click", personClick);
             document.getElementById("imagediv").appendChild(btn);
         })
+    }
+
+    function personClick(e) {
+        var newPerson = prompt("Please enter person's name:", e.target.dataset.person);
+        if (newPerson == null || newPerson == "" || newPerson == "unknown") {} else {
+            e.target.dataset.person = newPerson;
+            e.target.innerHTML = newPerson;
+        }
     }
     async function loadModels() {
         //let weightsURI = "weights";

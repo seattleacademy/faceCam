@@ -1,25 +1,22 @@
 # faceCam
 A face recognition tutorial using the browser
-## Step 8 Add face recognition
-1.  Add faceRecognitionNet detection to loadModels function
+## Step 9 Change name on button click
+1.  Add this button attributes below btn.className = Facename in the drawFaceRecognitionResults function
 ```javascript
-	await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
-```
-2.  Replace the one line btn.innerHTML so lable is made
+    btn.dataset.person = result.bestMatch.label;
+    btn.dataset.descriptor = result.descriptor;
+    btn.addEventListener("click", personClick);
+  ```
+2.  Add personClick function to script
  ```javascript  
-		btn.innerText = result.bestMatch.label;
-```
-3.  Add withFaceDescriptors to the updateResults function and add code to add bestMatch to results
-```javascript
-        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
-        faceMatcher = new faceapi.FaceMatcher(results);
-        results.forEach(function(result, i, results) {
-
-            if (results.length > 0) {
-                results[i].bestMatch = faceMatcher.findBestMatch(result.descriptor)
-            };
-        })
-````
-4. Confirm that each face is labled with a unique name like person 1, person 2, etc.
-5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step8
+    function personClick(e) {
+        var newPerson = prompt("Please enter person's name:", e.target.dataset.person);
+        if (newPerson == null || newPerson == "" || newPerson == "unknown") {} else {
+            e.target.dataset.person = newPerson;
+            e.target.innerHTML = newPerson;
+        }
+    }
+    ```
+4. Confirm that you can change each named person with a new name
+5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step9
 
