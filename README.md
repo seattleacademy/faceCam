@@ -20,11 +20,7 @@ A face recognition tutorial using the browser
 ```javascript
     loadModels().then(updateResults);
 ```
-4.  Add updateResults() at the end of the uploadImage function
-```javascript
-    loadModels().then(updateResults);
-````
-5. Remove any other calls to console. 
-6. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
-7. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step4
+4. Remove any other calls to console. 
+5. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
+6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step4
 
