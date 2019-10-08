@@ -5,11 +5,9 @@ A face recognition tutorial using the browser
 ```javascript
         await faceapi.nets.ageGenderNet.load(weightsURI);
 ```
-2.  Change drawFaceRecognitionResults btn.innerText and style to show expression of dections
+2.  Change drawFaceRecognitionResults btn.innerText and style to show age and gender of dections
  ```javascript  
-            btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
-            btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
-```
+ btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;```
 3.  Add withAgeAndGender to the updateResults
 ```javascript
    results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender();
