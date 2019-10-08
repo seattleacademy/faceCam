@@ -11,6 +11,10 @@ A face recognition tutorial using the browser
             btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
             btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
 ```
+3. Add withFaceExpression to updateResults
+```javascript
+        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions()
+```
 3. Check with pictures of happy, sad, surprised faces etc. to confirm matchings
 4. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step6
 
