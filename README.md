@@ -2,8 +2,8 @@
 
 1.  Add input controls for tuning before status indication
  ```html  
-    <label>Threshold:</label><input id="threshold" style="-webkit-appearance:none;" type="number" value=".30" step="0.01" min=".01" max="1.00">
-    <label>maxDiff:</label><input id="maxDiff" style="-webkit-appearance:none;" type="number" value=".60" step="0.01" min=".01" max="1.00">
+    <label>Threshold:</label><input id="threshold" type="number" value=".30" step="0.01" min=".01" max="1.00">
+    <label>maxDiff:</label><input id="maxDiff" type="number" value=".60" step="0.01" min=".01" max="1.00">
 ```
 2. Add style for number input to avoid up/down arrows
  ```html  
