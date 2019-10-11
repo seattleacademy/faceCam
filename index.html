@@ -35,7 +35,14 @@
     var maxDiff = .6;
     var srcId = "myImg";
     var webCamTimeout = 0;
-
+    
+    //localStorage.removeItem('faceMatcher'); //Uncomment to clear faceMatcher on load
+    if (localStorage.getItem('faceMatcher')) {
+        faceMatcher = faceapi.FaceMatcher.fromJSON(JSON.parse(localStorage.getItem('faceMatcher')));
+        labeledFaceDescriptors = faceMatcher.labeledDescriptors;
+        maxDiff = faceMatcher.distanceThreshold;
+        document.getElementById('maxDiff').value = maxDiff;
+    }
 
     function clearFaceNames() {
         let paras = document.getElementsByClassName('faceNames');
@@ -67,10 +74,11 @@
             document.getElementById("imagediv").appendChild(btn);
         })
     }
-
+ 
     function makeFaceMatcher() {
         if (labeledFaceDescriptors.length > 0) {
             faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDiff);
+            localStorage.setItem('faceMatcher', JSON.stringify(faceMatcher.toJSON()));
         }
     }
 
