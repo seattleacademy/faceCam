@@ -1,5 +1,5 @@
-# faceCam
-A face recognition tutorial using the browser
+[Back to step 1](https://github.com/seattleacademy/faceCam/tree/step1)
+
 ## Step 2  Add face-api.js library
 1.  Create a folder js inside the project
 1.  Download from https://github.com/justadudewhohacks/face-api.js/tree/master/dist and place face-api.js in the js directory.
@@ -14,5 +14,5 @@ A face recognition tutorial using the browser
 	</script>
 ```
 5.  Check with the console in the browswer that the library is loading and examine the attributes and methods.
-6.  This step can be checked at https://github.com/seattleacademy/faceCam/tree/step2
 
+[Go to step 3](https://github.com/seattleacademy/faceCam/tree/step3)
