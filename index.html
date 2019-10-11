@@ -13,6 +13,9 @@
         <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
     </div>
     <script>
+    var labeledFaceDescriptors = [];
+    var faceMatcher = null;
+
     function clearFaceNames() {
         let paras = document.getElementsByClassName('faceNames');
         while (paras[0]) {
@@ -37,11 +40,27 @@
         })
     }
 
+    function addDescriptor(newPerson, descriptor) {
+        for (let i = 0; i < labeledFaceDescriptors.length; i++) {
+            if (labeledFaceDescriptors[i].label == newPerson) {
+                labeledFaceDescriptors[i].descriptors.push(new Float32Array(descriptor.split(',')));
+                faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+                return;
+            }
+        }
+        descriptors = [];
+        descriptors.push(new Float32Array(descriptor.split(',')));
+        labeledFaceDescriptors.push(new faceapi.LabeledFaceDescriptors(newPerson, descriptors));
+        faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+    }
+
     function personClick(e) {
         var newPerson = prompt("Please enter person's name:", e.target.dataset.person);
         if (newPerson == null || newPerson == "" || newPerson == "unknown") {} else {
             e.target.dataset.person = newPerson;
             e.target.innerHTML = newPerson;
+            addDescriptor(newPerson, e.target.dataset.descriptor);
+            updateResults();
         }
     }
     async function loadModels() {
@@ -56,15 +75,15 @@
 
     async function updateResults() {
         results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
-        faceMatcher = new faceapi.FaceMatcher(results);
-        results.forEach(function(result, i, results) {
 
-            if (results.length > 0) {
+        results.forEach(function(result, i, results) {
+            if (faceMatcher) {
                 results[i].bestMatch = faceMatcher.findBestMatch(result.descriptor)
-            };
+            } else {
+                results[i].bestMatch = new faceapi.FaceMatch('unknown', 1);
+            }
         })
 
-        console.log(results);
         drawFaceRecognitionResults(results);
     }
 
