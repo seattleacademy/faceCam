@@ -1,3 +1,4 @@
+[Go to step 3](https://github.com/seattleacademy/faceCam/tree/step3)
 # faceCam
 A face recognition tutorial using the browser
 ## Step 4  Load models and recognize faces
@@ -22,5 +23,4 @@ A face recognition tutorial using the browser
 ```
 4. Remove any other calls to console. 
 5. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
-6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step4
-
+[Go to step 5](https://github.com/seattleacademy/faceCam/tree/step5)
