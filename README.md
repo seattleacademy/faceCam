@@ -1,3 +1,4 @@
+[Go to step 9](https://github.com/seattleacademy/faceCam/tree/step9)
 ## Step 10 Add code to learn face descriptions
 1.  Add personDescriptors and faceMatcher variables to the top of the script
 
@@ -50,5 +51,5 @@
     }
 ```
 5. Confirm that you can change each named person with a new name and that it recognizes learned faces
-6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step10
 
+[Go to step 11](https://github.com/seattleacademy/faceCam/tree/step11)
