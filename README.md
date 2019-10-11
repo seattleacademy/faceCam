@@ -14,6 +14,7 @@
             } else {
                 btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
             }
+            btn.title = (100 * (1 - result.bestMatch.distance)).toFixed(0) + ' %';
             btn.style.position = 'absolute';
             btn.style.top = result.detection.box.top + 'px';
             btn.style.left = result.detection.box.left + 'px';
@@ -25,6 +26,6 @@
         })
     }
 ```
-2. Confirm that unknown faces show age, expression, and gender.
+2. Confirm that unknown faces show age, expression, and gender. Confirm that when you hover over a button, percent match is displayed.
 3. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step12
 

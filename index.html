@@ -36,6 +36,7 @@
             } else {
                 btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
             }
+            btn.title = (100 * (1 - result.bestMatch.distance)).toFixed(0) + ' %';
             btn.style.position = 'absolute';
             btn.style.top = result.detection.box.top + 'px';
             btn.style.left = result.detection.box.left + 'px';
