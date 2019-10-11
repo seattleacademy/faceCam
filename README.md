@@ -1,5 +1,4 @@
-# faceCam
-A face recognition tutorial using the browser
+[Go to step 6](https://github.com/seattleacademy/faceCam/tree/step6)
 ## Step 7 Add age and gender recognition
 1.  Add age and gender recognition detection to loadModels function
 ```javascript
@@ -14,5 +13,5 @@ A face recognition tutorial using the browser
    results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender();
 ````
 4. Confirm that age and gender is being predicted with uploaded images
-5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step7
 
+[Go to step 8](https://github.com/seattleacademy/faceCam/tree/step8)
