@@ -23,4 +23,5 @@ A face recognition tutorial using the browser
 ```
 4. Remove any other calls to console. 
 5. Check in the debugger that the software is detecting all face in the sample and uploaded images. In particular, the score should give a value that signifies the likelyhood of matching a face.
+
 [Go to step 5](https://github.com/seattleacademy/faceCam/tree/step5)
