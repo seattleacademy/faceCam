@@ -26,7 +26,7 @@ Status: <span id="status"></span>
         await faceapi.nets.ageGenderNet.load(weightsURI);
         updateStatus('faceRecognitionNet');
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
-    ```
+```
 
 4.  Add updateStatus calls to updateResults
 ```javascript
@@ -46,7 +46,7 @@ Status: <span id="status"></span>
         updateStatus('');
     }
 
-````
+```
 5. Confirm that status is updated as page loads and new images are recognized
 
 [Go to step 12](https://github.com/seattleacademy/faceCam/tree/step12)
