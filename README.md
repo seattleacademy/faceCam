@@ -1,3 +1,4 @@
+[Go to step 11](https://github.com/seattleacademy/faceCam/tree/step11)
 ## Step 12 Identify age, gender, and expression of unknown faces
 
 1.  Replace drawFaceRecognitionResults function
@@ -27,5 +28,5 @@
     }
 ```
 2. Confirm that unknown faces show age, expression, and gender. Confirm that when you hover over a button, percent match is displayed.
-3. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step12
 
+[Go to step 13](https://github.com/seattleacademy/faceCam/tree/step13)
