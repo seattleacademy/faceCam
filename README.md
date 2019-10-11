@@ -1,5 +1,5 @@
-# faceCam
-A face recognition tutorial using the browser
+[Go to step 8](https://github.com/seattleacademy/faceCam/tree/step8)
+
 ## Step 9 Change name on button click
 1.  Add this button attributes below btn.className = Facename in the drawFaceRecognitionResults function
 ```javascript
@@ -16,7 +16,7 @@ A face recognition tutorial using the browser
             e.target.innerHTML = newPerson;
         }
     }
-    ```
+```
 4. Confirm that you can change each named person with a new name
-5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step9
 
+[Go to step 10](https://github.com/seattleacademy/faceCam/tree/step10)
