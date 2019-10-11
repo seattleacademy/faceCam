@@ -7,6 +7,7 @@
     if (location.protocol == "http:") {
         location.protocol = "https:";
     }
+    </script>
 ```
 2. Add imgUploadInput id to img and create webCamToggle checkbox
  ```html  
