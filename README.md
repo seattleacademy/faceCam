@@ -1,3 +1,4 @@
+[Go to step 10](https://github.com/seattleacademy/faceCam/tree/step10)
 ## Step 11 Add status indicator
 1.  Add span for status div with id imageDiv
 
@@ -47,5 +48,5 @@ Status: <span id="status"></span>
 
 ````
 5. Confirm that status is updated as page loads and new images are recognized
-6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step11
 
+[Go to step 12](https://github.com/seattleacademy/faceCam/tree/step12)
