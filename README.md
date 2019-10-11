@@ -5,8 +5,8 @@
     var labeledFaceDescriptors = [];
     var faceMatcher = null;
 ```
-2.  Add addDescript function add new person to faceMatche method.
- ```javascript  
+2.  Add addDescript function add new person to faceMatch method.
+```javascript
     function addDescriptor(newPerson, descriptor) {
         for (let i = 0; i < labeledFaceDescriptors.length; i++) {
             if (labeledFaceDescriptors[i].label == newPerson) {
@@ -20,9 +20,9 @@
         labeledFaceDescriptors.push(new faceapi.LabeledFaceDescriptors(newPerson, descriptors));
         faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
     }
-    ```
+```
 3. Call addDescriptor to the end of the if statement of the personClick function.
- ```javascript  
+```javascript
     function personClick(e) {
         var newPerson = prompt("Please enter person's name:", e.target.dataset.person);
         if (newPerson == null || newPerson == "" || newPerson == "unknown") {} else {
@@ -32,8 +32,7 @@
             updateResults();
         }
     }
-    ```
-
+```
 4.  Change updateResults to 
 ```javascript
     async function updateResults() {
@@ -49,7 +48,7 @@
 
         drawFaceRecognitionResults(results);
     }
-````
+```
 5. Confirm that you can change each named person with a new name and that it recognizes learned faces
 6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step10
 
