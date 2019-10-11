@@ -1,51 +1,30 @@
-## Step 11 Add status indicator
-1.  Add span for status div with id imageDiv
+## Step 12 Identify age, gender, and expression of unknown faces
 
-```html
-Status: <span id="status"></span>
-```
-2.  Add updateStatus function to script
+1.  Replace drawFaceRecognitionResults function
  ```javascript  
-        function updateStatus(str) {
-        document.getElementById("status").innerHTML = str;
-    }
-```
-3. Add updateStatus calls to loadModels function
- ```javascript  
-        updateStatus('loadModels');
-        //let weightsURI = "weights";
-        let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
-        updateStatus('ssdMobilenetv1');
-        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
-        updateStatus('faceLandmark68Net');
-        await faceapi.nets.faceLandmark68Net.load(weightsURI);
-        updateStatus('faceExpressionNet');
-        await faceapi.nets.faceExpressionNet.load(weightsURI);
-        updateStatus('ageGenderNet');
-        await faceapi.nets.ageGenderNet.load(weightsURI);
-        updateStatus('faceRecognitionNet');
-        await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
-    ```
+    function drawFaceRecognitionResults(results) {
+        clearFaceNames()
+        inputImgEl = document.getElementById("myImg");
+        results = faceapi.resizeResults(results, inputImgEl);
 
-4.  Add updateStatus calls to updateResults
-```javascript
-    async function updateResults() {
-        updateStatus('upateResults');
-        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
-
-        results.forEach(function(result, i, results) {
-            if (faceMatcher) {
-                results[i].bestMatch = faceMatcher.findBestMatch(result.descriptor)
+        results.forEach(function(result) {
+            let btn = document.createElement("button");
+            if (result.bestMatch.label != 'unknown') {
+                btn.innerText = result.bestMatch.label;
             } else {
-                results[i].bestMatch = new faceapi.FaceMatch('unknown', 1);
+                btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
             }
+            btn.style.position = 'absolute';
+            btn.style.top = result.detection.box.top + 'px';
+            btn.style.left = result.detection.box.left + 'px';
+            btn.className = 'faceNames';
+            btn.dataset.person = result.bestMatch.label;
+            btn.dataset.descriptor = result.descriptor;
+            btn.addEventListener("click", personClick);
+            document.getElementById("imagediv").appendChild(btn);
         })
-
-        drawFaceRecognitionResults(results);
-        updateStatus('');
     }
-
-````
-5. Confirm that status is updated as page loads and new images are recognized
-6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step11
+```
+2. Confirm that unknown faces show age, expression, and gender.
+3. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step12
 

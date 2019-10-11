@@ -31,8 +31,14 @@
 
         results.forEach(function(result) {
             let btn = document.createElement("button");
-            btn.innerText = result.bestMatch.label;
-            btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
+            if (result.bestMatch.label != 'unknown') {
+                btn.innerText = result.bestMatch.label;
+            } else {
+                btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
+            }
+            btn.style.position = 'absolute';
+            btn.style.top = result.detection.box.top + 'px';
+            btn.style.left = result.detection.box.left + 'px';
             btn.className = 'faceNames';
             btn.dataset.person = result.bestMatch.label;
             btn.dataset.descriptor = result.descriptor;
@@ -65,6 +71,7 @@
         }
     }
     async function loadModels() {
+        console.time('loadModels')
         updateStatus('loadModels');
         //let weightsURI = "weights";
         let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
@@ -78,9 +85,11 @@
         await faceapi.nets.ageGenderNet.load(weightsURI);
         updateStatus('faceRecognitionNet');
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
+        console.timeEnd('loadModels')
     }
 
     async function updateResults() {
+        console.time('updateResults')
         updateStatus('upateResults');
         results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
 
@@ -94,6 +103,7 @@
 
         drawFaceRecognitionResults(results);
         updateStatus('');
+        console.timeEnd('updateResults')
     }
 
     async function uploadImage(e) {
