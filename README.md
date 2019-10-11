@@ -1,56 +1,83 @@
-## Step 13 Add controls for tuning face recognition
+## Step 14 Add webCam support
 
-1.  Add input controls for tuning before status indication
+1.  Add to the top of head to use secure connection for webcam
  ```html  
-    <label>Threshold:</label><input id="threshold" style="-webkit-appearance:none;" type="number" value=".30" step="0.01" min=".01" max="1.00">
-    <label>maxDiff:</label><input id="maxDiff" style="-webkit-appearance:none;" type="number" value=".60" step="0.01" min=".01" max="1.00">
-```
-2. Add style for number input to avoid up/down arrows
- ```html  
-    <style>
-        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-        }
-    </style>
-```
-3.  Add threshold and maxDiff variables to top of script
-```javascript
-    var threshold = .3;
-    var maxDiff = .6;
-```
-4.  Create makeFaceMatcher function
-```javascript
-   function makeFaceMatcher() {
-        if (labeledFaceDescriptors.length > 0) {
-            faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDiff);
-        }
+    <script>
+        // Needed if webcam is used
+    if (location.protocol == "http:") {
+        location.protocol = "https:";
     }
 ```
-5.  Replace the two calls to faceMatcher in the addDescriptor function
-```javascript
-makeFaceMatcher();
+2. Add imgUploadInput id to img and create webCamToggle checkbox
+ ```html  
+    <label>Upload Image:</label> <input type="file" id="imgUploadInput" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
+    <label>Webcam:</label><input id="webCamToggle" type="checkbox">
 ```
-6.  Replace line to detectAllFaces in the updateResults function with these two lines
+3.  Add srcId and webCamTimeout global variables
 ```javascript
-    let options = new faceapi.SsdMobilenetv1Options({ minConfidence: Number(threshold) })
-    results = await faceapi.detectAllFaces("myImg", options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
+    var srcId = "myImg";
+    var webCamTimeout = 0;
+```
+4.  Change reference "myImg" to srcID in drawFaceRecognitionResults function
+```javascript
+    inputImgEl = document.getElementById(srcId);
+```
+5.  Change reference "myImg" to srcID in updateResults function
+```javascript
+      results = await faceapi.detectAllFaces(srcId, options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();```
+5.  Add timeOut at bottom of updateResults function when webCam is being used.
+```javascript
+        if (document.getElementById('webCamToggle').checked) {
+            webCamTimeout = setTimeout(updateResults, 200);
+        }
+```
+6.  Add toggleWebCam function
+```javascript
+    function toggleWebCam(enable) {
+        clearFaceNames()
+        webCam = document.getElementById('webCam');
+        let constraints = true;
+
+        if (enable) {
+            navigator.mediaDevices.getUserMedia({ video: constraints }).then(function(stream) {
+                document.getElementById("webCam").width = stream.getTracks()[0].getSettings().width;
+                document.getElementById("webCam").height = stream.getTracks()[0].getSettings().height;
+                srcId = "webCam"
+                document.getElementById("imgUploadInput").value = "";
+                document.getElementById("myImg").style.display = "none";
+                document.getElementById("webCam").style.display = "block";
+                webCam.srcObject = stream;
+                webCam.play().then(updateResults);
+            });
+        } else {
+            if (webCam.srcObject) {
+                webCam.srcObject.getTracks().forEach(function(track) {
+                    track.stop();
+                });
+            }
+            webCam.src = "";
+            srcId = "myImg";
+            document.getElementById("webCam").style.display = "none";
+            document.getElementById("myImg").style.display = "block";
+            clearTimeout(webCamTimeout);
+            updateResults();
+        }
+        document.getElementById('webCamToggle').checked = enable;
+    }
 ````
-7.  Add eventListeners to respond to changes in the new input fields
+7.  Add eventListeners to respond to changes in webCamToggle checkbox
 ```javascript
-   document.getElementById('threshold').addEventListener('change', function(event) {
-        threshold = event.target.value;
-        makeFaceMatcher();
-        updateResults();
-    }, false);
-
-    document.getElementById('maxDiff').addEventListener('change', function(event) {
-        maxDiff = event.target.value;
-        makeFaceMatcher();
-        updateResults();
+    document.getElementById('webCamToggle').addEventListener('change', function(event) {
+        toggleWebCam(event.target.checked);
     }, false);
 
 ```
-8.  Verify that the new controls work.  Lowering threshold will detect more faces.  Setting maxDiff close to 1 will make it easier to match faces but result in more false matches.
-
-9. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step13
+8. Change addPerson function so update is not called when webCamTimer is in use
+```javascript
+    if (!document.getElementById('webCamToggle').checked) {
+        updateResults();
+    }
+```
+9. Verify that the webCam feature operates correctly
+10. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step14
 
