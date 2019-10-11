@@ -9,6 +9,7 @@
 
 <body>
     <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
+    Status: <span id="status"></span>
     <div id="imagediv">
         <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
     </div>
@@ -64,16 +65,22 @@
         }
     }
     async function loadModels() {
+        updateStatus('loadModels');
         //let weightsURI = "weights";
         let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
         await faceapi.nets.ssdMobilenetv1.load(weightsURI);
+        updateStatus('ssdMobilenetv1');
         await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        updateStatus('faceLandmark68Net');
         await faceapi.nets.faceExpressionNet.load(weightsURI);
+        updateStatus('faceExpressionNet');
         await faceapi.nets.ageGenderNet.load(weightsURI);
+        updateStatus('ageGenderNet');
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
     }
 
     async function updateResults() {
+        updateStatus('upateResults');
         results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
 
         results.forEach(function(result, i, results) {
@@ -85,6 +92,7 @@
         })
 
         drawFaceRecognitionResults(results);
+        updateStatus('');
     }
 
     async function uploadImage(e) {
@@ -94,6 +102,9 @@
         updateResults();
     }
 
+    function updateStatus(str) {
+        document.getElementById("status").innerHTML = str;
+    }
     loadModels().then(updateResults);
     </script>
 </body>

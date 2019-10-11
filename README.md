@@ -1,41 +1,37 @@
-## Step 10 Add code to learn face descriptions
-1.  Add personDescriptors and faceMatcher variables to the top of the script
+## Step 11 Add status indicator
+1.  Add span for status div with id imageDiv
 
-```javascript
-    var labeledFaceDescriptors = [];
-    var faceMatcher = null;
+```html
+Status: <span id="status"></span>
 ```
-2.  Add addDescript function add new person to faceMatch method.
-```javascript
-    function addDescriptor(newPerson, descriptor) {
-        for (let i = 0; i < labeledFaceDescriptors.length; i++) {
-            if (labeledFaceDescriptors[i].label == newPerson) {
-                labeledFaceDescriptors[i].descriptors.push(new Float32Array(descriptor.split(',')));
-                faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
-                return;
-            }
-        }
-        descriptors = [];
-        descriptors.push(new Float32Array(descriptor.split(',')));
-        labeledFaceDescriptors.push(new faceapi.LabeledFaceDescriptors(newPerson, descriptors));
-        faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+2.  Add updateStatus function to script
+ ```javascript  
+        function updateStatus(str) {
+        document.getElementById("status").innerHTML = str;
     }
 ```
-3. Call addDescriptor to the end of the if statement of the personClick function.
-```javascript
-    function personClick(e) {
-        var newPerson = prompt("Please enter person's name:", e.target.dataset.person);
-        if (newPerson == null || newPerson == "" || newPerson == "unknown") {} else {
-            e.target.dataset.person = newPerson;
-            e.target.innerHTML = newPerson;
-            addDescriptor(newPerson, e.target.dataset.descriptor);
-            updateResults();
-        }
+3. Add updateStatus calls to loadModels function
+ ```javascript  
+    async function loadModels() {
+        updateStatus('loadModels');
+        //let weightsURI = "weights";
+        let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
+        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
+        updateStatus('ssdMobilenetv1');
+        await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        updateStatus('faceLandmark68Net');
+        await faceapi.nets.faceExpressionNet.load(weightsURI);
+        updateStatus('faceExpressionNet');
+        await faceapi.nets.ageGenderNet.load(weightsURI);
+        updateStatus('ageGenderNet');
+        await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
     }
-```
-4.  Change updateResults to 
+    ```
+
+4.  Add updateStatus calls to updateResults
 ```javascript
     async function updateResults() {
+        updateStatus('upateResults');
         results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
 
         results.forEach(function(result, i, results) {
@@ -47,8 +43,10 @@
         })
 
         drawFaceRecognitionResults(results);
+        updateStatus('');
     }
+
 ```
-5. Confirm that you can change each named person with a new name and that it recognizes learned faces
-6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step10
+5. Confirm that status is updated as page loads and new images are recognized
+6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step11
 
