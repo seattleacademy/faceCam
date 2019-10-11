@@ -68,14 +68,15 @@
         updateStatus('loadModels');
         //let weightsURI = "weights";
         let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
-        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
         updateStatus('ssdMobilenetv1');
-        await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
         updateStatus('faceLandmark68Net');
-        await faceapi.nets.faceExpressionNet.load(weightsURI);
+        await faceapi.nets.faceLandmark68Net.load(weightsURI);
         updateStatus('faceExpressionNet');
-        await faceapi.nets.ageGenderNet.load(weightsURI);
+        await faceapi.nets.faceExpressionNet.load(weightsURI);
         updateStatus('ageGenderNet');
+        await faceapi.nets.ageGenderNet.load(weightsURI);
+        updateStatus('faceRecognitionNet');
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
     }
 

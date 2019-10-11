@@ -12,20 +12,19 @@ Status: <span id="status"></span>
 ```
 3. Add updateStatus calls to loadModels function
  ```javascript  
-    async function loadModels() {
         updateStatus('loadModels');
         //let weightsURI = "weights";
         let weightsURI = "https://seattleacademy.github.io/faceRoster/weights";
-        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
         updateStatus('ssdMobilenetv1');
-        await faceapi.nets.faceLandmark68Net.load(weightsURI);
+        await faceapi.nets.ssdMobilenetv1.load(weightsURI);
         updateStatus('faceLandmark68Net');
-        await faceapi.nets.faceExpressionNet.load(weightsURI);
+        await faceapi.nets.faceLandmark68Net.load(weightsURI);
         updateStatus('faceExpressionNet');
-        await faceapi.nets.ageGenderNet.load(weightsURI);
+        await faceapi.nets.faceExpressionNet.load(weightsURI);
         updateStatus('ageGenderNet');
+        await faceapi.nets.ageGenderNet.load(weightsURI);
+        updateStatus('faceRecognitionNet');
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
-    }
     ```
 
 4.  Add updateStatus calls to updateResults
@@ -46,7 +45,7 @@ Status: <span id="status"></span>
         updateStatus('');
     }
 
-```
+````
 5. Confirm that status is updated as page loads and new images are recognized
 6. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step11
 
