@@ -5,10 +5,17 @@
     <meta charset="UTF-8">
     <title>FaceCam</title>
     <script src="js/face-api.js"></script>
+    <style>
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+        }
+    </style>
 </head>
 
 <body>
     <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
+    <label>Threshold:</label><input id="threshold" style="-webkit-appearance:none;" type="number" value=".30" step="0.01" min=".01" max="1.00">
+    <label>maxDiff:</label><input id="maxDiff" style="-webkit-appearance:none;" type="number" value=".60" step="0.01" min=".01" max="1.00">
     Status: <span id="status"></span>
     <div id="imagediv">
         <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
@@ -16,6 +23,8 @@
     <script>
     var labeledFaceDescriptors = [];
     var faceMatcher = null;
+    var threshold = .3;
+    var maxDiff = .6;
 
     function clearFaceNames() {
         let paras = document.getElementsByClassName('faceNames');
@@ -48,18 +57,24 @@
         })
     }
 
+    function makeFaceMatcher() {
+        if (labeledFaceDescriptors.length > 0) {
+            faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDiff);
+        }
+    }
+
     function addDescriptor(newPerson, descriptor) {
         for (let i = 0; i < labeledFaceDescriptors.length; i++) {
             if (labeledFaceDescriptors[i].label == newPerson) {
                 labeledFaceDescriptors[i].descriptors.push(new Float32Array(descriptor.split(',')));
-                faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+                makeFaceMatcher();
                 return;
             }
         }
         descriptors = [];
         descriptors.push(new Float32Array(descriptor.split(',')));
         labeledFaceDescriptors.push(new faceapi.LabeledFaceDescriptors(newPerson, descriptors));
-        faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+        makeFaceMatcher();
     }
 
     function personClick(e) {
@@ -92,7 +107,8 @@
     async function updateResults() {
         console.time('updateResults')
         updateStatus('upateResults');
-        results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
+        let options = new faceapi.SsdMobilenetv1Options({ minConfidence: Number(threshold) })
+        results = await faceapi.detectAllFaces("myImg", options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
 
         results.forEach(function(result, i, results) {
             if (faceMatcher) {
@@ -117,6 +133,19 @@
     function updateStatus(str) {
         document.getElementById("status").innerHTML = str;
     }
+
+    document.getElementById('threshold').addEventListener('change', function(event) {
+        threshold = event.target.value;
+        makeFaceMatcher();
+        updateResults();
+    }, false);
+
+    document.getElementById('maxDiff').addEventListener('change', function(event) {
+        maxDiff = event.target.value;
+        makeFaceMatcher();
+        updateResults();
+    }, false);
+
     loadModels().then(updateResults);
     </script>
 </body>

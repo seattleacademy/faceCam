@@ -1,31 +1,56 @@
-## Step 12 Identify age, gender, and expression of unknown faces
+## Step 13 Add controls for tuning face recognition
 
-1.  Replace drawFaceRecognitionResults function
- ```javascript  
-    function drawFaceRecognitionResults(results) {
-        clearFaceNames()
-        inputImgEl = document.getElementById("myImg");
-        results = faceapi.resizeResults(results, inputImgEl);
-
-        results.forEach(function(result) {
-            let btn = document.createElement("button");
-            if (result.bestMatch.label != 'unknown') {
-                btn.innerText = result.bestMatch.label;
-            } else {
-                btn.innerText = result.age.toFixed(0) + ' year old ' + result.expressions.asSortedArray()[0].expression + ' ' + result.gender;
-            }
-            btn.title = (100 * (1 - result.bestMatch.distance)).toFixed(0) + ' %';
-            btn.style.position = 'absolute';
-            btn.style.top = result.detection.box.top + 'px';
-            btn.style.left = result.detection.box.left + 'px';
-            btn.className = 'faceNames';
-            btn.dataset.person = result.bestMatch.label;
-            btn.dataset.descriptor = result.descriptor;
-            btn.addEventListener("click", personClick);
-            document.getElementById("imagediv").appendChild(btn);
-        })
+1.  Add input controls for tuning before status indication
+ ```html  
+    <label>Threshold:</label><input id="threshold" style="-webkit-appearance:none;" type="number" value=".30" step="0.01" min=".01" max="1.00">
+    <label>maxDiff:</label><input id="maxDiff" style="-webkit-appearance:none;" type="number" value=".60" step="0.01" min=".01" max="1.00">
+```
+2. Add style for number input to avoid up/down arrows
+ ```html  
+    <style>
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+        }
+    </style>
+```
+3.  Add threshold and maxDiff variables to top of script
+```javascript
+    var threshold = .3;
+    var maxDiff = .6;
+```
+4.  Create makeFaceMatcher function
+```javascript
+   function makeFaceMatcher() {
+        if (labeledFaceDescriptors.length > 0) {
+            faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, maxDiff);
+        }
     }
 ```
-2. Confirm that unknown faces show age, expression, and gender. Confirm that when you hover over a button, percent match is displayed.
-3. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step12
+5.  Replace the two calls to faceMatcher in the addDescriptor function
+```javascript
+makeFaceMatcher();
+```
+6.  Replace line to detectAllFaces in the updateResults function with these two lines
+```javascript
+    let options = new faceapi.SsdMobilenetv1Options({ minConfidence: Number(threshold) })
+    results = await faceapi.detectAllFaces("myImg", options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
+````
+7.  Add eventListeners to respond to changes in the new input fields
+```javascript
+   document.getElementById('threshold').addEventListener('change', function(event) {
+        threshold = event.target.value;
+        makeFaceMatcher();
+        updateResults();
+    }, false);
+
+    document.getElementById('maxDiff').addEventListener('change', function(event) {
+        maxDiff = event.target.value;
+        makeFaceMatcher();
+        updateResults();
+    }, false);
+
+```
+8.  Verify that the new controls work.  Lowering threshold will detect more faces.  Setting maxDiff close to 1 will make it easier to match faces but result in more false matches.
+
+9. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step13
 
