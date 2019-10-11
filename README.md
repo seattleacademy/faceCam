@@ -1,5 +1,4 @@
-# faceCam
-A face recognition tutorial using the browser
+[Go to step 4](https://github.com/seattleacademy/faceCam/tree/step4)
 ## Step 5  Place button over each face with classScore
 1.  Add a clearFaceTag function to remove old buttons with class faceName
 ```javascript
@@ -31,5 +30,5 @@ A face recognition tutorial using the browser
       drawFaceRecognitionResults(results);
 ```
 4. Verify that class scores are placed above each face on original and uploaded pictures.
-5. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step5
 
+[Go to step 6](https://github.com/seattleacademy/faceCam/tree/step6)
