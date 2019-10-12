@@ -1,3 +1,4 @@
+[Go to step 12](https://github.com/seattleacademy/faceCam/tree/step12)
 ## Step 13 Add controls for tuning face recognition
 
 1.  Add input controls for tuning before status indication
@@ -52,5 +53,4 @@ makeFaceMatcher();
 ```
 8.  Verify that the new controls work.  Lowering threshold will detect more faces.  Setting maxDiff close to 1 will make it easier to match faces but result in more false matches.
 
-9. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step13
-
+[Go to step 14](https://github.com/seattleacademy/faceCam/tree/step14)
