@@ -1,3 +1,5 @@
+[Go to step 14](https://github.com/seattleacademy/faceCam/tree/step14)
+
 ## Step 15 Add localStorage support
 
 1.  Add after variable declaration at top of script
@@ -15,5 +17,5 @@
     localStorage.setItem('faceMatcher', JSON.stringify(faceMatcher.toJSON()));
 ```
 3. Verify that face are remembered when browser is relaunched
-4. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step15
 
+[Go to step 16](https://github.com/seattleacademy/faceCam/tree/step16)
