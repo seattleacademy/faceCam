@@ -26,14 +26,15 @@
 ```
 5.  Change reference "myImg" to srcID in updateResults function
 ```javascript
-      results = await faceapi.detectAllFaces(srcId, options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();```
-5.  Add timeOut at bottom of updateResults function when webCam is being used.
+      results = await faceapi.detectAllFaces(srcId, options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
+```
+6.  Add timeOut at bottom of updateResults function when webCam is being used.
 ```javascript
         if (document.getElementById('webCamToggle').checked) {
             webCamTimeout = setTimeout(updateResults, 200);
         }
 ```
-6.  Add toggleWebCam function
+7.  Add toggleWebCam function
 ```javascript
     function toggleWebCam(enable) {
         clearFaceNames()
@@ -67,19 +68,19 @@
         document.getElementById('webCamToggle').checked = enable;
     }
 ````
-7.  Add eventListeners to respond to changes in webCamToggle checkbox
+8.  Add eventListeners to respond to changes in webCamToggle checkbox
 ```javascript
     document.getElementById('webCamToggle').addEventListener('change', function(event) {
         toggleWebCam(event.target.checked);
     }, false);
 
 ```
-8. Change addPerson function so update is not called when webCamTimer is in use
+9. Change addPerson function so update is not called when webCamTimer is in use
 ```javascript
     if (!document.getElementById('webCamToggle').checked) {
         updateResults();
     }
 ```
-9. Verify that the webCam feature operates correctly
+10. Verify that the webCam feature operates correctly
 
 [Go to step 15](https://github.com/seattleacademy/faceCam/tree/step15)
