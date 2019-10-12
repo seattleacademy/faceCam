@@ -15,26 +15,30 @@
     <label>Upload Image:</label> <input type="file" id="imgUploadInput" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
     <label>Webcam:</label><input id="webCamToggle" type="checkbox">
 ```
-3.  Add srcId and webCamTimeout global variables
+3.  Add video below img with id="myImg
+```html
+<video id="webCam"></video>
+```
+4.  Add srcId and webCamTimeout global variables
 ```javascript
     var srcId = "myImg";
     var webCamTimeout = 0;
 ```
-4.  Change reference "myImg" to srcID in drawFaceRecognitionResults function
+5.  Change reference "myImg" to srcID in drawFaceRecognitionResults function
 ```javascript
     inputImgEl = document.getElementById(srcId);
 ```
-5.  Change reference "myImg" to srcID in updateResults function
+6.  Change reference "myImg" to srcID in updateResults function
 ```javascript
       results = await faceapi.detectAllFaces(srcId, options).withFaceLandmarks().withFaceExpressions().withAgeAndGender().withFaceDescriptors();
 ```
-6.  Add timeOut at bottom of updateResults function when webCam is being used.
+7.  Add timeOut at bottom of updateResults function when webCam is being used.
 ```javascript
         if (document.getElementById('webCamToggle').checked) {
             webCamTimeout = setTimeout(updateResults, 200);
         }
 ```
-7.  Add toggleWebCam function
+8.  Add toggleWebCam function
 ```javascript
     function toggleWebCam(enable) {
         clearFaceNames()
@@ -68,19 +72,19 @@
         document.getElementById('webCamToggle').checked = enable;
     }
 ````
-8.  Add eventListeners to respond to changes in webCamToggle checkbox
+9.  Add eventListeners to respond to changes in webCamToggle checkbox
 ```javascript
     document.getElementById('webCamToggle').addEventListener('change', function(event) {
         toggleWebCam(event.target.checked);
     }, false);
 
 ```
-9. Change addPerson function so update is not called when webCamTimer is in use
+10. Change addPerson function so update is not called when webCamTimer is in use
 ```javascript
     if (!document.getElementById('webCamToggle').checked) {
         updateResults();
     }
 ```
-10. Verify that the webCam feature operates correctly
+11. Verify that the webCam feature operates correctly
 
 [Go to step 15](https://github.com/seattleacademy/faceCam/tree/step15)
