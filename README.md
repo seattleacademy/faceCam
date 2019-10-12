@@ -1,3 +1,4 @@
+[Go to step 13](https://github.com/seattleacademy/faceCam/tree/step13)
 ## Step 14 Add webCam support
 
 1.  Add to the top of head to use secure connection for webcam
@@ -80,5 +81,5 @@
     }
 ```
 9. Verify that the webCam feature operates correctly
-10. This step can be checked at https://github.com/seattleacademy/faceCam/tree/step14
 
+[Go to step 15](https://github.com/seattleacademy/faceCam/tree/step15)
