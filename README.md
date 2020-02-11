@@ -1,7 +1,7 @@
 [Go to step 13](https://github.com/seattleacademy/faceCam/tree/step13)
 ## Step 14 Add webCam support
 
-1.  Add to the top of head to use secure connection for webcam
+1.  Add the follwing new 'script' tag to the top of 'head' to use secure connection for webcam
  ```html  
     <script>
         // Needed if webcam is used
@@ -10,16 +10,16 @@
     }
     </script>
 ```
-2. Add imgUploadInput id to img and create webCamToggle checkbox
+2. Add imgUploadInput id (id="imgUploadInout") to Upload Image label at the top of 'body' and create webCamToggle checkbox line after it
  ```html  
 <label>Upload Image:</label> <input type="file" id="imgUploadInput" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
 <label>Webcam:</label><input id="webCamToggle" type="checkbox">
 ```
-3.  Add video below img with id="myImg
+3.  Add video below img with id="myImg"
 ```html
 <video style ="display:none;" "id="webCam"></video>
 ```
-4.  Add srcId and webCamTimeout global variables
+4.  Add srcId and webCamTimeout global variables under the 'script' tag within 'body'
 ```javascript
     var srcId = "myImg";
     var webCamTimeout = 0;
