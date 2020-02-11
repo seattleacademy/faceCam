@@ -6,7 +6,7 @@
     var labeledFaceDescriptors = [];
     var faceMatcher = null;
 ```
-2.  Add addDescript function add new person to faceMatch method.
+2.  Add addDescript function to add a new person to faceMatch method.
 ```javascript
     function addDescriptor(newPerson, descriptor) {
         for (let i = 0; i < labeledFaceDescriptors.length; i++) {
