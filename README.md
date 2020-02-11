@@ -9,7 +9,7 @@
         }
     }
 ```
-2.  Create drawFaeRegonition function to create an place button with classScore
+2.  Create drawFaceRegonition function to create an place button with classScore
  ```javascript  
     function drawFaceRecognitionResults(results) {
         clearFaceNames()
