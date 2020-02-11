@@ -1,13 +1,13 @@
 [Back to step 1](https://github.com/seattleacademy/faceCam/tree/step1)
 
 ## Step 2  Add face-api.js library
-1.  Create a folder js inside the project
-1.  Download from https://github.com/justadudewhohacks/face-api.js/tree/master/dist and place face-api.js in the js directory.
-1.  Place a reference to the face-api.js library in the head section of the index.html page
+1.  Create a folder named 'js' within the project folder. 
+2.  Download from https://github.com/justadudewhohacks/face-api.js/tree/master/dist and place face-api.js in your 'js' directory.  
+3.  Place a reference to the face-api.js library within the 'head' section of the index.html page
 ```html
 	<script src="js/face-api.js"></script>
 ```
-1.  Add script to console.log(faceapi) at the top of the body. 
+4.  Within the 'body' in index.html, create a new <script> tag. Start by writing a single line within this tag to log faceapi to the console. 
 ```html
 	<script>
 		console.log(faceapi);
