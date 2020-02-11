@@ -2,7 +2,7 @@
 
 ## Step 15 Add localStorage support
 
-1.  Add after variable declaration at top of script
+1.  Add after variable declaration at top of script under 'body'
  ```javascript  
     //localStorage.removeItem('faceMatcher'); //Uncomment to clear faceMatcher on load
     if (localStorage.getItem('faceMatcher')) {
