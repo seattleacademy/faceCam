@@ -7,11 +7,11 @@
     <img id="myImg" src="bbt1.jpg" alt="" style="max-width: 800px;">
 </div>
 ```
-2.  Add file input element to upload files
+2.  Under the 'body' tag, add a file input element to upload files.
 ```html
 <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
 ```
-3.  Just before the close of the body, add the following script to upload the image
+3.  Within the 'script' tag under the 'body' tag, add the following function to upload the image
 ```html
 <script>
     async function uploadImage(e) {
