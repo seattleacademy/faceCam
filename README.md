@@ -1,7 +1,7 @@
 [Go to step 8](https://github.com/seattleacademy/faceCam/tree/step8)
 
 ## Step 9 Change name on button click
-1.  Add this button attributes below btn.className = Facename in the drawFaceRecognitionResults function
+1.  Add these button attributes below btn.className = Facename in the drawFaceRecognitionResults function
 ```javascript
     btn.dataset.person = result.bestMatch.label;
     btn.dataset.descriptor = result.descriptor;
