@@ -1,11 +1,11 @@
 [Go to step 10](https://github.com/seattleacademy/faceCam/tree/step10)
 ## Step 11 Add status indicator
-1.  Add span for status div with id imageDiv
+1.  At the top within the 'body' tag, add a span for status div with id imageDiv
 
 ```html
 Status: <span id="status"></span>
 ```
-2.  Add updateStatus function to script
+2.  Add updateStatus function to 'script' tag
  ```javascript  
         function updateStatus(str) {
         document.getElementById("status").innerHTML = str;
@@ -28,7 +28,7 @@ Status: <span id="status"></span>
         await faceapi.nets.faceRecognitionNet.loadFromUri(weightsURI)
 ```
 
-4.  Add updateStatus calls to updateResults
+4.  Add updateStatus calls to updateResults() function.
 ```javascript
     async function updateResults() {
         updateStatus('upateResults');
