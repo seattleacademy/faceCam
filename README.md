@@ -29,6 +29,6 @@
 ```javascript
       drawFaceRecognitionResults(results);
 ```
-4. Verify that class scores are placed above each face on original and uploaded pictures.
+4. Verify that class scores are placed above each face on original picure.
 
 [Go to step 6](https://github.com/seattleacademy/faceCam/tree/step6)
