@@ -1,7 +1,7 @@
 [Go to step 11](https://github.com/seattleacademy/faceCam/tree/step11)
 ## Step 12 Identify age, gender, and expression of unknown faces
 
-1.  Replace drawFaceRecognitionResults function
+1.  Replace the drawFaceRecognitionResults() function with the following improved version
  ```javascript  
     function drawFaceRecognitionResults(results) {
         clearFaceNames()
