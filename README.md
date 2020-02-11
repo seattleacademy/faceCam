@@ -6,7 +6,7 @@
 await faceapi.nets.faceLandmark68Net.load(weightsURI);
 await faceapi.nets.faceExpressionNet.load(weightsURI);
 ```
-2.  Change drawFaceRecognitionResults btn.innerText and style to show expression of dections
+2.  Change lines btn.innerText and style under drawFaceRecognitionResults() to show expression of dections
  ```javascript  
 btn.innerText = result.expressions.asSortedArray()[0].expression + ' ' + result.detection.classScore.toFixed(2);
 btn.style = 'position:absolute; top:' + result.detection.box.top + 'px;left:' + result.detection.box.left + 'px; zindex:2';
@@ -19,6 +19,6 @@ results = await faceapi.detectAllFaces("myImg").withFaceLandmarks().withFaceExpr
 ```javascript
 updateResults()
 ```
-5. Check with pictures of happy, sad, surprised faces etc. to confirm matchings
+5. Check with uploaded pictures of happy, sad, surprised faces etc. to confirm matchings
 
 [Go to step 7](https://github.com/seattleacademy/faceCam/tree/step7)
