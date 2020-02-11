@@ -11,7 +11,7 @@
 ```html
 <label>Upload Image:</label> <input type="file" onchange="uploadImage(event)" accept=".jpg, .jpeg, .png">
 ```
-3.  Within the 'script' tag under the 'body' tag, add the following function to upload the image
+3.  Just before the end of the body, add the following function within a new 'script' tag to upload the image
 ```html
 <script>
     async function uploadImage(e) {
